@@ -44,6 +44,24 @@ const calculatePolarity = w => {
    return -0.05;
  }
 };
+
+// TODO: Limit max number
+const hashCode = (s, l) => s.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+
+const findSuitableWord = (word, kFactor, options) => {
+  let i = options.indexOf(word);
+  if (i === -1) {
+    i = hashCode(word, options.length);
+  }
+
+  let toSub = options[i + kFactor];
+  while (calculatePolarity(toSub) < 0) {
+    toSub = options[i + kFactor];
+    i++;
+  }
+  return toSub;
+};
+
  
 //
 // 
@@ -56,19 +74,25 @@ export const rewriteText = (text, kFactor) => {
    ...CUSTOM_WORDS[word],
  }));
 
+ let count = 0;
  const wordsToSubsitute = wordsInTweet.filter(w => w.polarity <= 0).map(w => {
    if (w.class === 'NOUN') {
-     const i = NOUNS.indexOf(w.word);
-     const toSub = NOUNS[i + kFactor];
+     const toSub = findSuitableWord(w.word, kFactor, NOUNS);
      text = text.replace(new RegExp(w.word, 'i'), toSub);
+     count++;
    }
 
    if (w.class === 'ADJECTIVE') {
-     const i = ADJECTIVES.indexOf(w.word);
-     const toSub = ADJECTIVES[i + kFactor];
+     const toSub = findSuitableWord(w.word, kFactor, ADJECTIVES);
      text = text.replace(new RegExp(w.word, 'i'), toSub);
+     count++;
    }
  });
+
+ // If no changes, don't tweet it.
+ if (count === 0) {
+   return null;
+ }
 
  return text;
 };

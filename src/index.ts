@@ -31,6 +31,9 @@ const getTweetRecord = (tweetId) => {
 };
 
 const getDesiredFields = (tweet) => {
+  if (!tweet) {
+    return null;
+  }
   return {
     id: tweet.id,
     text: tweet.text,
@@ -72,11 +75,15 @@ const run = async () => {
         // TODO: Add the name of the author?
         console.log(rewritten);
 
-        // const response = await client.post('statuses/update', {
-        //   status: rewritten,
-        // });
-        //
-        // writeTweetRecord(tweet.id, { original: getDesiredFields(tweet), rewritten: getDesiredFields(response) });
+        // Don't tweet it if we didn't modify it
+        let response = null;
+        if (!rewritten) {
+          response = await client.post('statuses/update', {
+            status: rewritten,
+          });
+        }
+
+        writeTweetRecord(tweet.id, { original: getDesiredFields(tweet), rewritten: getDesiredFields(response) });
       }
     }
   }
