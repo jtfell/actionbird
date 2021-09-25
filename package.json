@@ -1,0 +1,17 @@
+{
+  "name": "actionbird",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "scrape": "tsc && node dist/index.js",
+    "test": "tsc && node dist/text.spec.js"
+  },
+  "dependencies": {
+    "twitter-lite": "1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "16.9.6",
+    "typescript": "4.4.3"
+  }
+}
