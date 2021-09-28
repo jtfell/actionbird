@@ -117,6 +117,14 @@
      polarity: 0,
      class: 'NOUN',
    },
+   coal: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   renewables: {
+     polarity: 0,
+     class: 'NOUN',
+   },
    // gov: {
    //   polarity: 0,
    //   class: 'NOUN',
