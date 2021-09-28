@@ -18,6 +18,10 @@
      polarity: 0,
      class: 'NOUN',
    },
+   argument: {
+     polarity: -0.25,
+     class: 'NOUN',
+   },
 
    //
    // Political words should be re-written

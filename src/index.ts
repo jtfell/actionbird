@@ -60,7 +60,7 @@ const run = async () => {
   //
   const { targets } = JSON.parse(readFileSync(`${__dirname}/../data/targets.json`, 'utf8'));
   for await (const target of targets) {
-    console.log(target);
+    console.log('Checking:', target);
     const tweets = await app.get('statuses/user_timeline', {
       screen_name: target.screen_name,
       count: 5,
@@ -72,14 +72,13 @@ const run = async () => {
         rewritten = rewritten?.replace(/@/g, '');
         rewritten = rewritten?.replace(/….*$/g, '…');
         rewritten = rewritten?.replace(/&amp;/g, '&');
-        // rewritten = rewritten && `${target.screen_name}: ${rewritten}`;
 
         // Don't tweet it if we didn't modify it
         let response = null;
         if (!!rewritten) {
-          console.log(tweet);
+          console.log('Tweeting: ', rewritten);
           response = await app.post('statuses/update', {
-            status: unescape(rewritten),
+            status: rewritten,
             // Quote their tweet
             attachment_url: `https://twitter.com/${target.screen_name}/status/${tweet.id_str}`
           });
@@ -92,7 +91,7 @@ const run = async () => {
 };
 
 run()
-  .then(() => console.log('Ran successfully'))
+  .then(() => console.log('Yahoo'))
   .catch(e => {
     console.error(e._headers);
     console.error(JSON.stringify(e, null ,2));
