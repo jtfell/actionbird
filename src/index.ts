@@ -75,11 +75,11 @@ const run = async () => {
 
         // Don't tweet it if we didn't modify it
         let response = null;
-        // if (!!rewritten) {
-        //   response = await client.post('statuses/update', {
-        //     status: rewritten,
-        //   });
-        // }
+        if (!!rewritten) {
+          response = await client.post('statuses/update', {
+            status: rewritten,
+          });
+        }
 
         writeTweetRecord(tweet.id, { original: getDesiredFields(tweet), rewritten, tweeted: getDesiredFields(response) });
       }
