@@ -61,6 +61,7 @@ const run = async () => {
   //
   const { targets } = JSON.parse(readFileSync(`${__dirname}/../data/targets.json`, 'utf8'));
   for await (const target of targets) {
+    console.log(target);
     const tweets = await app.get('statuses/user_timeline', {
       screen_name: target.screen_name,
       count: 5,
@@ -89,6 +90,7 @@ const run = async () => {
 run()
   .then(() => console.log('Ran successfully'))
   .catch(e => {
-    console.error(e);
+    console.error(e._headers);
+    console.error(JSON.stringify(e, null ,2));
     process.exit(1);
   });
