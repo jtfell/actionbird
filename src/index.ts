@@ -81,7 +81,7 @@ const run = async () => {
           response = await app.post('statuses/update', {
             status: unescape(rewritten),
             // Quote their tweet
-            attachment_url: `https://twitter.com/${target.screen_name}/status/${tweet.id}`
+            attachment_url: `https://twitter.com/${target.screen_name}/status/${tweet.id_str}`
           });
         }
 
