@@ -71,13 +71,16 @@ const run = async () => {
         let rewritten = rewriteText(tweet.text, K_FACTOR);
         rewritten = rewritten?.replace(/@/g, '');
         rewritten = rewritten?.replace(/….*$/g, '…');
-        rewritten = rewritten && `${target.screen_name}: ${rewritten}`;
+        rewritten = rewritten?.replace(/&amp;/g, '&');
+        // rewritten = rewritten && `${target.screen_name}: ${rewritten}`;
 
         // Don't tweet it if we didn't modify it
         let response = null;
         if (!!rewritten) {
           response = await app.post('statuses/update', {
-            status: rewritten,
+            status: unescape(rewritten),
+            // Quote their tweet
+            attachment_url: `https://twitter.com/${target.screen_name}/status/${tweet.id}`
           });
         }
 
