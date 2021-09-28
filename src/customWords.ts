@@ -10,6 +10,14 @@
      polarity: -0.25,
      class: 'ADJECTIVE',
    },
+   explosion: {
+     polarity: -0.25,
+     class: 'NOUN',
+   },
+   alcohol: {
+     polarity: 0,
+     class: 'NOUN',
+   },
 
    //
    // Political words should be re-written
@@ -23,6 +31,10 @@
      class: 'ADJECTIVE',
    },
    covid: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   "covid-19": {
      polarity: 0,
      class: 'NOUN',
    },
@@ -61,11 +73,35 @@
      polarity: 0,
      class: 'NOUN',
    },
+   cost: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   costs: {
+     polarity: 0,
+     class: 'NOUN',
+   },
    budget: {
      polarity: 0,
      class: 'NOUN',
    },
    economy: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   pregnant: {
+     polarity: 0,
+     class: 'ADJECTIVE',
+   },
+   pregnancy: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   emissions: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   emission: {
      polarity: 0,
      class: 'NOUN',
    },

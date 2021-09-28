@@ -5,8 +5,6 @@ import { rewriteText } from './text';
 const {
   TWITTER_CONSUMER_KEY,
   TWITTER_CONSUMER_SECRET,
-  ACCESS_TOKEN,
-  ACCESS_TOKEN_SECRET,
 } = process.env;
 
 //
@@ -37,7 +35,7 @@ const getDesiredFields = (tweet) => {
   return {
     id: tweet.id,
     text: tweet.text,
-    author_id: tweet.author_id,
+    author: tweet.user.screen_name,
     created_at: tweet.created_at,
   };
 };
@@ -65,26 +63,27 @@ const run = async () => {
   for await (const target of targets) {
     const tweets = await app.get('statuses/user_timeline', {
       screen_name: target.screen_name,
-      count: 10,
+      count: 5,
     });
 
     for (const tweet of tweets) {
-      if (!getTweetRecord(tweet.id)) {
-        const rewritten = rewriteText(tweet.text, K_FACTOR);
-
-        // TODO: Add the name of the author?
-        console.log(rewritten);
+      if (!getTweetRecord(tweet.id) && !tweet.text.startsWith('RT ')) {
+        let rewritten = rewriteText(tweet.text, K_FACTOR);
+        rewritten = rewritten?.replace(/@/g, '');
+        rewritten = rewritten?.replace(/….*$/g, '…');
 
         // Don't tweet it if we didn't modify it
         let response = null;
-        if (!rewritten) {
-          response = await client.post('statuses/update', {
-            status: rewritten,
-          });
-        }
+        // if (!!rewritten) {
+        //   response = await client.post('statuses/update', {
+        //     status: rewritten,
+        //   });
+        // }
 
-        writeTweetRecord(tweet.id, { original: getDesiredFields(tweet), rewritten: getDesiredFields(response) });
+        writeTweetRecord(tweet.id, { original: getDesiredFields(tweet), rewritten, tweeted: getDesiredFields(response) });
       }
     }
   }
 };
+
+run();

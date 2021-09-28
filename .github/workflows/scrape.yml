@@ -1,15 +1,17 @@
 name: Scrape
 
-# on:
-  # schedule:
-    # Every half-hour
-    # - cron:  '0,30 * * * *'
+on:
+  schedule:
+    # Every 20 minutes
+    - cron:  '0,20,40 * * * *'
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_KEY }}
+      TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_SECRET }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1

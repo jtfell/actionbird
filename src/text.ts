@@ -51,7 +51,15 @@ const hashCode = (s, l) => s.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
 const findSuitableWord = (word, kFactor, options) => {
   let i = options.indexOf(word);
   if (i === -1) {
-    i = hashCode(word, options.length);
+    // Find another word starting with the same 2 first letters
+    i = options.findIndex(w => w.startsWith(`${word[0]}${word[1]}`));
+
+    if (i === -1) {
+      // Find another word starting with the same first letter
+      i = options.findIndex(w => w.startsWith(`${word[0]}`));
+    }
+
+    // i = hashCode(word, options.length);
   }
 
   let toSub = options[i + kFactor];

@@ -7,5 +7,5 @@ const TEST = [
  `And Clive Palmer is out spending millions of dollars spreading misinformation, backing up the anti-vax fake news via text messages to everyone in the country, but the gov says nothing, presumably waiting for another election-time boost from the billionaire.`
 ];
 
-console.log(TEST.map(t => rewriteText(t, 15)));
+console.log(TEST.map(t => rewriteText(t, 25)));
 
