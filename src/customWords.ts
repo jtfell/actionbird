@@ -30,6 +30,14 @@
      polarity: 0,
      class: 'ADJECTIVE',
    },
+   lockdowns: {
+     polarity: -0.25,
+     class: 'NOUN',
+   },
+   lockdown: {
+     polarity: -0.25,
+     class: 'NOUN',
+   },
    covid: {
      polarity: 0,
      class: 'NOUN',

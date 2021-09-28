@@ -77,6 +77,7 @@ const run = async () => {
         // Don't tweet it if we didn't modify it
         let response = null;
         if (!!rewritten) {
+          console.log(tweet);
           response = await app.post('statuses/update', {
             status: unescape(rewritten),
             // Quote their tweet
