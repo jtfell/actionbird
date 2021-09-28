@@ -45,8 +45,16 @@ const calculatePolarity = w => {
  }
 };
 
-// TODO: Limit max number
-const hashCode = (s, l) => s.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+// Pretty crude -- Could add exceptions explicitly?
+const haveSamePlurality = (a, b) => {
+  if (a.endsWith('s') && b.endsWith('s')) {
+    return true;
+  }
+  if (!a.endsWith('s') && !b.endsWith('s')) {
+    return true;
+  }
+  return false;
+};
 
 const findSuitableWord = (word, kFactor, options) => {
   let i = options.indexOf(word);
@@ -58,12 +66,10 @@ const findSuitableWord = (word, kFactor, options) => {
       // Find another word starting with the same first letter
       i = options.findIndex(w => w.startsWith(`${word[0]}`));
     }
-
-    // i = hashCode(word, options.length);
   }
 
   let toSub = options[i + kFactor];
-  while (calculatePolarity(toSub) < 0) {
+  while (calculatePolarity(toSub) < 0 || !haveSamePlurality(toSub, word)) {
     toSub = options[i + kFactor];
     i++;
   }
