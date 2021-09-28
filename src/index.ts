@@ -55,13 +55,6 @@ const run = async () => {
   };
   const app = new Twitter(config);
 
-  // const client = new Twitter(config);
-  // const res = await client.getBearerToken();
-  // const app = new Twitter({
-  //   ...config,
-  //   bearer_token: res.access_token
-  // });
-
   //
   // Run the process for each target in our list
   //
@@ -78,6 +71,7 @@ const run = async () => {
         let rewritten = rewriteText(tweet.text, K_FACTOR);
         rewritten = rewritten?.replace(/@/g, '');
         rewritten = rewritten?.replace(/….*$/g, '…');
+        rewritten = rewritten && `${target.screen_name}: ${rewritten}`;
 
         // Don't tweet it if we didn't modify it
         let response = null;
