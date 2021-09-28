@@ -53,12 +53,14 @@ const run = async () => {
     access_token_key: TWITTER_ACCESS_TOKEN_KEY, // from your User (oauth_token)
     access_token_secret: TWITTER_ACCESS_TOKEN_SECRET, // from your User (oauth_token_secret)
   };
-  const client = new Twitter(config);
-  const res = await client.getBearerToken();
-  const app = new Twitter({
-    ...config,
-    bearer_token: res.access_token
-  });
+  const app = new Twitter(config);
+
+  // const client = new Twitter(config);
+  // const res = await client.getBearerToken();
+  // const app = new Twitter({
+  //   ...config,
+  //   bearer_token: res.access_token
+  // });
 
   //
   // Run the process for each target in our list
@@ -80,7 +82,7 @@ const run = async () => {
         // Don't tweet it if we didn't modify it
         let response = null;
         if (!!rewritten) {
-          response = await client.post('statuses/update', {
+          response = await app.post('statuses/update', {
             status: rewritten,
           });
         }
