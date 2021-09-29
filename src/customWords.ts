@@ -101,6 +101,11 @@
      polarity: 0,
      class: 'NOUN',
    },
+   cuts: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+
    pregnant: {
      polarity: 0,
      class: 'ADJECTIVE',
@@ -109,6 +114,7 @@
      polarity: 0,
      class: 'NOUN',
    },
+
    emissions: {
      polarity: 0,
      class: 'NOUN',
