@@ -22,6 +22,14 @@
      polarity: -0.25,
      class: 'NOUN',
    },
+   coast: {
+     polarity: 0.25,
+     class: 'NOUN',
+   },
+   responsibility: {
+     polarity: 0,
+     class: 'NOUN',
+   },
 
    //
    // Political words should be re-written
@@ -60,6 +68,14 @@
      class: 'NOUN',
    },
    liberal: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   national: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   'liberal-national': {
      polarity: 0,
      class: 'NOUN',
    },
@@ -105,6 +121,23 @@
      polarity: 0,
      class: 'NOUN',
    },
+   job: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   jobs: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+
+   news: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   media: {
+     polarity: 0,
+     class: 'NOUN',
+   },
 
    pregnant: {
      polarity: 0,
@@ -128,6 +161,18 @@
      class: 'NOUN',
    },
    renewables: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   'gas-fired': {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   energy: {
+     polarity: 0,
+     class: 'NOUN',
+   },
+   gas: {
      polarity: 0,
      class: 'NOUN',
    },
