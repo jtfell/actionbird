@@ -77,11 +77,15 @@ const run = async () => {
         let response = null;
         if (!!rewritten) {
           console.log('Tweeting: ', rewritten);
-          response = await app.post('statuses/update', {
-            status: rewritten,
-            // Quote their tweet
-            attachment_url: `https://twitter.com/${target.screen_name}/status/${tweet.id_str}`
-          });
+          try {
+            response = await app.post('statuses/update', {
+              status: rewritten,
+              // Quote their tweet
+              attachment_url: `https://twitter.com/${target.screen_name}/status/${tweet.id_str}`
+            });
+          } catch (e) {
+            console.error(e);
+          }
         }
 
         writeTweetRecord(tweet.id, { original: getDesiredFields(tweet), rewritten, tweeted: getDesiredFields(response) });
@@ -93,7 +97,6 @@ const run = async () => {
 run()
   .then(() => console.log('Yahoo'))
   .catch(e => {
-    console.error(e._headers);
     console.error(JSON.stringify(e, null ,2));
     process.exit(1);
   });
