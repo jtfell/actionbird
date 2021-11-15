@@ -61,10 +61,17 @@ const run = async () => {
   const { targets } = JSON.parse(readFileSync(`${__dirname}/../data/targets.json`, 'utf8'));
   for await (const target of targets) {
     console.log('Checking:', target);
-    const tweets = await app.get('statuses/user_timeline', {
-      screen_name: target.screen_name,
-      count: 5,
-    });
+
+    let tweets;
+    try {
+      const tweets = await app.get('statuses/user_timeline', {
+        screen_name: target.screen_name,
+        count: 5,
+      });
+    } catch (e) {
+      console.log('Failed to get timeline of:', target.screen_name);
+      continue;;
+    }
 
     for (const tweet of tweets) {
       if (!getTweetRecord(tweet.id) && !tweet.text.startsWith('RT ')) {
@@ -84,7 +91,7 @@ const run = async () => {
               attachment_url: `https://twitter.com/${target.screen_name}/status/${tweet.id_str}`
             });
           } catch (e) {
-            console.error(e);
+            console.log('Failed to tweet: ', e.message);
           }
         }
 
